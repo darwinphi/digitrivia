@@ -1,13 +1,20 @@
 <script>
-  import { get } from "svelte/store";
-
-  let uri = "http://numbersapi.com/";
+  let url = "http://numbersapi.com";
   let number = Math.trunc(Math.random() * 500) + 1;
   let year = new Date().getFullYear();
   let trivia = "";
-  let date = new Date().toISOString().slice(0, 10);
+  let date = new Date();
 
-  let getRandomEmoji = () => {
+  $: month = new Date(date).getUTCMonth() + 1;
+  $: day = new Date(date).getUTCDate();
+
+  $: api = {
+    number: `${url}/${number}/trivia?json`,
+    year: `${url}/${year}/year?json`,
+    date: `${url}/${month}/${day}/date?json`,
+  };
+
+  let getEmoji = () => {
     let emojis = [
       "🤓",
       "🤯",
@@ -25,37 +32,11 @@
     return emojis[x];
   };
 
-  const getTrivia = async (number) => {
+  let fetchTrivia = async (uri) => {
     try {
-      let response = await fetch(
-        `${uri}${number}/trivia?json?default=Boring+number+please+try+again`
-      );
+      let response = await fetch(uri);
       let result = await response.json();
-      trivia = `${getRandomEmoji()} ${result.text}`;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getYearTrivia = async (year) => {
-    try {
-      let response = await fetch(`${uri}${year}/year?json`);
-      let result = await response.json();
-      trivia = `${getRandomEmoji()} ${result.text}`;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getDateTrivia = async (date) => {
-    let dateEntered = new Date(date);
-    let month = dateEntered.getUTCMonth() + 1;
-    let day = dateEntered.getUTCDate();
-
-    try {
-      let response = await fetch(`${uri}${month}/${day}/date?json`);
-      let result = await response.json();
-      trivia = `${getRandomEmoji()} ${result.text}`;
+      trivia = `${getEmoji()} ${result.text}`;
     } catch (error) {
       console.log(error);
     }
@@ -64,17 +45,17 @@
 
 <main>
   <h1>📑 DigiTrivia ni Gracia</h1>
-  <form on:submit|preventDefault={() => getTrivia(number)}>
+  <form on:submit|preventDefault={() => fetchTrivia(api.number)}>
     <label for="number">Type a Number:</label>
     <input type="number" name="number" bind:value={number} />
     <button>🔎 Show Trivia</button>
   </form>
-  <form on:submit|preventDefault={() => getYearTrivia(year)}>
+  <form on:submit|preventDefault={() => fetchTrivia(api.year)}>
     <label for="year">Type a Year:</label>
     <input type="number" name="year" bind:value={year} />
     <button>🔎 Show Trivia</button>
   </form>
-  <form on:submit|preventDefault={() => getDateTrivia(date)}>
+  <form on:submit|preventDefault={() => fetchTrivia(api.date)}>
     <label for="date">Type a Date:</label>
     <input type="date" name="date" bind:value={date} />
     <button>🔎 Show Trivia</button>
