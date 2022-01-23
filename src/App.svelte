@@ -2,7 +2,7 @@
   let url = "http://numbersapi.com";
   let number = Math.trunc(Math.random() * 500) + 1;
   let year = new Date().getFullYear();
-  let trivia = "";
+  let trivia = "🙄 Pick a number";
   let date = new Date();
 
   $: month = new Date(date).getUTCMonth() + 1;
@@ -44,19 +44,19 @@
 </script>
 
 <main>
-  <h1>📑 DigiTrivia ni Gracia</h1>
+  <h1>📑 DigiTrivia</h1>
   <form on:submit|preventDefault={() => fetchTrivia(api.number)}>
-    <label for="number">Type a Number:</label>
+    <label for="number">Type a <b>Num</b></label>
     <input type="number" name="number" bind:value={number} />
     <button>🔎 Show Trivia</button>
   </form>
   <form on:submit|preventDefault={() => fetchTrivia(api.year)}>
-    <label for="year">Type a Year:</label>
+    <label for="year">Type a <b>Year</b></label>
     <input type="number" name="year" bind:value={year} />
     <button>🔎 Show Trivia</button>
   </form>
   <form on:submit|preventDefault={() => fetchTrivia(api.date)}>
-    <label for="date">Type a Date:</label>
+    <label for="date">Type a <b>Date</b></label>
     <input type="date" name="date" bind:value={date} />
     <button>🔎 Show Trivia</button>
   </form>
@@ -67,19 +67,44 @@
   main {
     text-align: center;
     height: 100vh;
-    width: 50vw;
+    width: 100vw;
     margin: 0 auto;
   }
 
-  input {
-    width: 20%;
+  main form {
+    margin-bottom: 1rem;
+  }
+
+  main form label {
+    width: 90%;
+  }
+
+  main form input {
+    width: 90%;
     margin: 1rem;
   }
 
-  @media only screen and (max-width: 600px) {
-    input {
-      width: 100%;
-      display: block;
+  main h1 {
+    padding: 0.8rem;
+    border: 2px dotted #8bd3dd;
+  }
+
+  main h2 {
+    padding: 0.8rem;
+    background: #8bd3dd;
+  }
+
+  @media only screen and (min-width: 600px) {
+    main {
+      width: 50vw;
+    }
+
+    main form label {
+      width: 70%;
+    }
+
+    main form input {
+      width: 30%;
     }
   }
 </style>
