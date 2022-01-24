@@ -1,5 +1,5 @@
 # 📑 DigiTrivia
-![example workflow](https://github.com/darwinphi/digitrivia/actions/workflows/.github/workflows/gh_pages.yaml/badge.svg?branch=main)
+![example workflow](https://github.com/darwinphi/digitrivia/actions/workflows/.github/workflows/gh_pages.yaml/badge.svg?branch=main&event=push)
 
 A trivia app created with [Svelte](https://svelte.dev).
 
