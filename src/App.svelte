@@ -1,6 +1,6 @@
 <script>
-  let proxy = "https://thingproxy.freeboard.io/fetch";
-  let url = `${proxy}/http://numbersapi.com`;
+  let proxy = "https://api.codetabs.com/v1/proxy/?quest=";
+  let url = `${proxy}http://numbersapi.com`;
   let number = Math.trunc(Math.random() * 100) + 1;
   let year = new Date().getFullYear();
   let trivia = "🙄 Pick a number";
