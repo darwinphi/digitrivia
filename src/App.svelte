@@ -34,6 +34,7 @@
   };
 
   let fetchTrivia = async (uri) => {
+    trivia = "Loading...";
     try {
       let response = await fetch(uri);
       let result = await response.json();
