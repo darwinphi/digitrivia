@@ -63,6 +63,7 @@
     <button>🔎 Show Trivia</button>
   </form>
   <h2>{trivia}</h2>
+  <div class="layer steps" />
 </main>
 
 <style>
@@ -92,13 +93,30 @@
   }
 
   main h2 {
-    padding: 0.8rem;
+    padding: 1rem;
     background: #8bd3dd;
+    margin-bottom: 0;
+  }
+
+  .layer {
+    aspect-ratio: 900/200;
+    width: 100%;
+    background: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .steps {
+    background-image: url("./steps.svg");
   }
 
   @media only screen and (min-width: 600px) {
     main {
       width: 50vw;
+    }
+
+    main h2 {
+      padding-top: 3rem;
     }
 
     main form label {
